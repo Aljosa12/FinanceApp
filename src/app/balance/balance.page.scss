@@ -1,0 +1,64 @@
+ion-content {
+    --background: #ebeef7;
+
+    .content-wrapper {
+        padding: 20px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .balance {
+            min-height: 8rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 20px 20px;
+            background: white;
+            border-radius: 10px;
+            color: black;
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+
+            ion-icon {
+                color: #c2c5cc;
+                font-size: 36px;
+            }
+
+            .data {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                .amount-text {
+                    font-size: 1rem;
+                    color: #989aa0;
+                }
+
+                .amount {
+                    font-size: 2rem;
+                    color: rgba(0, 0, 0, 0.8);
+                    font-weight: 500;
+                }
+            }
+
+            .month {
+                flex: 0;
+                align-self: baseline;
+                color: #989aa0;
+            }
+        }
+
+        .chart {
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+            padding-top: 10px;
+            padding-bottom: 20px;
+
+            h3 {
+                text-align: center;
+                margin-bottom: 24px;
+            }
+        }
+    }
+
+}

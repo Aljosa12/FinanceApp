@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Add transaction
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="transaction">
+    <ion-list>
+      <ion-list>
+        <ion-item>
+          <ion-select interface="popover" label-placement="fixed" placeholder="Transaction type">
+            <ion-select-option value="income">Income</ion-select-option>
+            <ion-select-option value="expense">Expense</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-input label="Transaction amount" type="number" placeholder="Enter number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-select interface="popover" label-placement="fixed" placeholder="Transaction category">
+            <ion-select-option value="entertainment">Entertainment</ion-select-option>
+            <ion-select-option value="expenses">expenses</ion-select-option>
+            <ion-select-option value="fun">Fun</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-textarea label="Note" placeholder="Enter details..."></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Date</ion-label>
+          <ion-datetime display-format="DD MMM YYYY"></ion-datetime>
+        </ion-item>
+      </ion-list>
+    </ion-list>
+  </div>
+</ion-content>
