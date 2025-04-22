@@ -18,6 +18,7 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
+  LoadingController,
 } from '@ionic/angular/standalone';
 
 // Services
@@ -48,7 +49,8 @@ export class LoginPage {
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController,
   ) {}
 
   loginForm = this.formBuilder.group(
@@ -62,22 +64,23 @@ export class LoginPage {
   async onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      try {
-        await this.authService.login(email!, password!);
-        const toast = await this.toastCtrl.create({
-          message: 'Login successful!',
-          duration: 2000,
-        })
-        toast.present().then(()=> {
-          this.router.navigateByUrl('');
-        });;
-      } catch (err: any) {
-        const toast = await this.toastCtrl.create({
-          message: err.message,
-          duration: 2000,
-        });
-        toast.present();
-      }
+
+      const loading = await this.loadingCtrl.create();
+      loading.present();
+
+      this.authService.login(email!, password!).then(async (user: any) => {
+        loading.dismiss();
+
+        if (user) {
+          // const toast = await this.toastCtrl.create({
+          //   message: 'Login successful!',
+          //   duration: 2000,
+          // })
+          // toast.present()
+
+          this.router.navigateByUrl('/tabs/balance');
+        } 
+      });
     }
   }
 }

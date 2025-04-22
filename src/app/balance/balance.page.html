@@ -1,14 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Balance
-    </ion-title>
+    <ion-title slot="start"> Balance </ion-title>
+    <ion-button (click)="navigateProfile()" slot="end"><ion-icon name="person"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-button (click)="logout()">Logout</ion-button>
-
   <div class="content-wrapper">
     <div class="balance">
       <div class="data">
@@ -26,7 +23,7 @@
     </div>
     <div class="chart">
       <h3>Your spending by category</h3>
-        <canvas id="myDoughnutChart" width="400" height="400"></canvas>
+      <canvas id="myDoughnutChart" width="400" height="400"></canvas>
     </div>
   </div>
 </ion-content>

@@ -17,6 +17,7 @@ import {
   IonLabel,
   IonToolbar,
   IonTitle,
+  LoadingController,
 } from '@ionic/angular/standalone';
 import { ToastController } from '@ionic/angular';
 
@@ -48,7 +49,8 @@ export class RegisterPage {
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController
   ) {}
 
   registerForm = this.formBuilder.group(
@@ -67,24 +69,23 @@ export class RegisterPage {
 
   async onSubmit() {
     if (this.registerForm.valid) {
+      const loading = await this.loadingCtrl.create();
       const { email, password } = this.registerForm.value;
+      loading.present();
 
-      try {
-        await this.authService.register(email!, password!);
-        const toast = await this.toastCtrl.create({
-          message: 'Registration successful!',
-          duration: 2000,
-        });
-        toast.present().then(()=> {
+      this.authService.register(email!, password!).then(async (user: any) => {
+        loading.dismiss();
+
+        if (user) {
+          // const toast = await this.toastCtrl.create({
+          //   message: 'Login successful!',
+          //   duration: 2000,
+          // })
+          // toast.present()
+
           this.router.navigateByUrl('/login');
-        });
-      } catch (err: any) {
-        const toast = await this.toastCtrl.create({
-          message: err.message,
-          duration: 2000,
-        });
-        toast.present();
-      }
+        } 
+      });
     }
   }
 }

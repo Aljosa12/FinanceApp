@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   IonButton,
   IonHeader,
@@ -17,9 +18,6 @@ import {
   Title,
 } from 'chart.js';
 import { ToastController } from '@ionic/angular';
-
-// Services
-import { AuthenticationService } from 'src/services/authentication.service';
 
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title);
 
@@ -41,7 +39,7 @@ export class BalancePage {
   public chart: any;
 
   constructor(
-    private authService: AuthenticationService,
+    private router: Router,
     private toastCtrl: ToastController
   ) {}
 
@@ -94,21 +92,7 @@ export class BalancePage {
     });
   }
 
-  // Logout method
-  async logout(): Promise<void> {
-    try {
-      await this.authService.logout();
-      const toast = await this.toastCtrl.create({
-        message: 'Logout successful!',
-        duration: 2000,
-      });
-      toast.present();
-    } catch (err: any) {
-      const toast = await this.toastCtrl.create({
-        message: err.message,
-        duration: 2000,
-      });
-      toast.present();
-    }
+  navigateProfile() {
+    this.router.navigateByUrl('/profile');
   }
 }

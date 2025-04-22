@@ -10,15 +10,21 @@ export class AuthenticationService {
   constructor(private auth: Auth) {}
 
   login(email: string, password: string) {
-    return signInWithEmailAndPassword(this.auth, email, password);
+    return new Promise((resolve, reject) => {
+      resolve(signInWithEmailAndPassword(this.auth, email, password));
+    });
   }
 
   register(email: string, password: string) {
-    return createUserWithEmailAndPassword(this.auth, email, password);
+    return new Promise((resolve, reject) => {
+      resolve(createUserWithEmailAndPassword(this.auth, email, password));
+    });
   }
 
   logout() {
-    return signOut(this.auth);
+    return new Promise((resolve, reject) => {
+      resolve(signOut(this.auth));
+    });
   }
 
   getCurrentUser(): Promise<User | null> {
