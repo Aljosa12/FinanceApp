@@ -19,6 +19,9 @@ import {
 } from 'chart.js';
 import { ToastController } from '@ionic/angular';
 
+// Components
+import { HeaderComponent } from 'src/app/components/header/header.component';
+
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title);
 
 @Component({
@@ -26,6 +29,7 @@ Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title);
   templateUrl: 'balance.page.html',
   styleUrls: ['balance.page.scss'],
   imports: [
+    HeaderComponent,
     IonButton,
     IonHeader,
     IonToolbar,
@@ -90,9 +94,5 @@ export class BalancePage {
         },
       },
     });
-  }
-
-  navigateProfile() {
-    this.router.navigateByUrl('/profile');
   }
 }

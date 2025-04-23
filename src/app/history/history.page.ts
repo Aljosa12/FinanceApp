@@ -1,15 +1,33 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonIcon, IonContent } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import { Router } from '@angular/router';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonIcon,
+  IonContent,
+} from '@ionic/angular/standalone';
+
+// Components
+import { HeaderComponent } from 'src/app/components/header/header.component';
 
 @Component({
   selector: 'tab-history',
   templateUrl: 'history.page.html',
   styleUrls: ['history.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, ExploreContainerComponent]
+  imports: [
+    HeaderComponent,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonIcon,
+  ],
 })
 export class HistoryPage {
+  constructor(private router: Router,) {}
 
-  constructor() {}
-
+  viewTransaction() {
+    this.router.navigateByUrl('/view-transaction');
+  }
 }

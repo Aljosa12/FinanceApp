@@ -1,51 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   IonButton,
-  LoadingController,
-  IonContent,
   IonHeader,
-  IonTitle,
+  LoadingController,
+  IonIcon,
   IonToolbar,
+  IonTitle,
+  IonContent,
 } from '@ionic/angular/standalone';
-import { ToastController } from '@ionic/angular';
 
 // Services
 import { AuthenticationService } from 'src/services/authentication.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.page.html',
-  styleUrls: ['./profile.page.scss'],
-  standalone: true,
-  imports: [
-    IonButton,
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    CommonModule,
-    FormsModule,
-  ],
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  imports: [IonButton, IonHeader, IonToolbar, IonTitle, IonIcon, IonContent],
 })
-export class ProfilePage {
+export class HeaderComponent implements OnInit {
+  @Input() title: string = '';
+
   constructor(
     private authService: AuthenticationService,
     private loadingCtrl: LoadingController,
-    private router: Router,
-    private toastCtrl: ToastController
+    private router: Router
   ) {}
 
-  // Logout method
+  ngOnInit() {}
+
   async logout(): Promise<void> {
     const loading = await this.loadingCtrl.create();
     loading.present();
 
     this.authService.logout().then(async (res: any) => {
       await this.authService.logout();
-      
+
       loading.dismiss();
       this.router.navigateByUrl('/login');
     });

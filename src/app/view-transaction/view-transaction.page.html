@@ -1,6 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>View transaction</ion-title>
+    <ion-button (click)="goBack()" slot="start" fill="clear">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+      <span class="back-button-txt">
+        Back
+      </span>
+    </ion-button>
+    <ion-title slot="end">View transaction</ion-title>
   </ion-toolbar>
 </ion-header>
 

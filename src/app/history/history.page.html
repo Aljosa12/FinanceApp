@@ -1,13 +1,7 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Transaction history
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header title="Transaction history"></app-header>
 
 <ion-content [fullscreen]="true">
-  <div class="transaction">
+  <div class="transaction" (click)="viewTransaction()">
     <div class="data">
       <span class="amount">51.15 $</span>
       <span class="balance">Balance: 123.56$</span>
