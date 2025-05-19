@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsModule , FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
+  IonButton,
   IonDatetime,
   IonLabel,
   IonTextarea,
@@ -18,12 +20,25 @@ import {
 // Components
 import { HeaderComponent } from 'src/app/components/header/header.component';
 
+// Services
+import { DatabaseService } from 'src/services/db.service';
+
+// Interfaces
+interface Transaction {
+  type: string;
+  amount: number;
+  category: string;
+  note: string;
+  date: string;
+}
+
 @Component({
   selector: 'tab-add-transaction',
   templateUrl: 'add-transaction.page.html',
   styleUrls: ['add-transaction.page.scss'],
   imports: [
     HeaderComponent,
+    IonButton,
     IonDatetime,
     IonLabel,
     IonTextarea,
@@ -37,8 +52,40 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
     IonToolbar,
     IonTitle,
     IonContent,
+    ReactiveFormsModule
   ],
 })
 export class AddTransactionPage {
-  constructor() {}
+  transactionForm!: FormGroup;
+  constructor(
+    private dbService: DatabaseService, 
+    private fb: FormBuilder
+    ) { }
+
+  ngOnInit() {
+    this.transactionForm = this.fb.group({
+      type: ['', Validators.required],
+      amount: ['', [Validators.required, Validators.min(0.01)]],
+      category: ['', Validators.required],
+      note: [''],
+      date: ['', Validators.required]
+    });
+  }
+
+  async addTransaction() {
+    console.log('is db ready', this.dbService.isDatabaseReady())
+    if (this.transactionForm.valid && this.dbService.isDatabaseReady()) {
+      const formData = this.transactionForm.value;
+      // do something with formData, like save to DB
+      const transaction: Transaction = {
+        type: formData.type,
+        amount: formData.amount,
+        category: formData.category,
+        note: formData.note,
+        date: formData.date,
+      }
+      
+      await this.dbService.addTransaction(transaction);
+    } 
+  }
 }

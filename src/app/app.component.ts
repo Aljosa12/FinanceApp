@@ -15,6 +15,8 @@ import {
   removeOutline,
 } from 'ionicons/icons';
 
+
+
 // Services
 import { DatabaseService } from 'src/services/db.service';
 
@@ -40,14 +42,8 @@ export class AppComponent {
     // Initialize Firebase app
     initializeApp(environment.firebase);
   }
-
-  ngOnInit() {
-    this.dbService.addTransaction('Aljoša', 'Hello today is a good day');
-
-    setTimeout(() => {
-      const tran = this.dbService.getTransactions();
-
-      console.log('see transactions', tran);
-    }, 10000);
+  
+  async ngOnInit() {
+    await this.dbService.init();
   }
 }
