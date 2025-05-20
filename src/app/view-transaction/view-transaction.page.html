@@ -9,29 +9,29 @@
     <ion-title slot="end">View transaction</ion-title>
   </ion-toolbar>
 </ion-header>
-
+{{ transaction ? 'Hello world' : 'Not happy' }}
 <ion-content [fullscreen]="true">
   <div class="content-wrapper">
     <div class="transaction">
       <div class="data">
         <span class="amount-text">Date:</span>
-        <span class="date">21.04.2025</span>
+        <span class="date">{{ transaction?.date }}</span>
       </div>
       <div class="data">
         <span class="amount-text">Transaction type:</span>
-        <span class="type">Expense</span>
+        <span class="type">{{ transaction?.type }}</span>
       </div>
       <div class="data">
         <span class="amount-text">Transaction category:</span>
-        <span class="category">Other</span>
+        <span class="category">{{ transaction?.category }}</span>
       </div>
       <div class="data">
         <span class="amount-text">Amount:</span>
-        <span class="amount">844.50 $</span>
+        <span class="amount">{{ transaction?.amount }}</span>
       </div>
       <div class="data">
         <span class="amount-text">Note:</span>
-        <span class="note">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus quasi ab doloremque laborum dolorem, ea sint sunt aperiam voluptatem officiis.</span>
+        <span class="note">{{ transaction?.note }}</span>
       </div>
     </div>
   </div>

@@ -1,14 +1,16 @@
 <app-header title="Transaction history"></app-header>
 
 <ion-content [fullscreen]="true">
-  <div class="transaction" (click)="viewTransaction()">
-    <div class="data">
-      <span class="amount">51.15 $</span>
-      <span class="balance">Balance: 123.56$</span>
+  @for (transaction of transactions(); track transaction) {
+    <div class="transaction" (click)="viewTransaction(transaction)">
+      <div class="data">
+        <span class="amount">{{ transaction.amount }}</span>
+        <span class="balance">Balance: 123.56$</span>
+      </div>
+      <ion-icon name="add-outline"></ion-icon>
     </div>
-    <ion-icon name="add-outline"></ion-icon>
-  </div>
-  <div class="transaction">
+  }
+  <!-- <div class="transaction">
     <div class="data">
       <span class="amount">44.15 $</span>
       <span class="balance">Balance: 123.56$</span>
@@ -35,6 +37,6 @@
       <span class="balance">Balance: 123.56$</span>
     </div>
     <ion-icon name="remove-outline"></ion-icon>
-  </div>
+  </div> -->
 
 </ion-content>

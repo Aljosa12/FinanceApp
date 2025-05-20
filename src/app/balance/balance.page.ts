@@ -18,6 +18,7 @@ import {
   Title,
 } from 'chart.js';
 import { ToastController } from '@ionic/angular';
+import { getMonth, getDate } from 'date-fns';
 
 // Components
 import { HeaderComponent } from 'src/app/components/header/header.component';
@@ -42,10 +43,12 @@ Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title);
 export class BalancePage {
   public chart: any;
 
-  constructor(
-    private router: Router,
-    private toastCtrl: ToastController
-  ) {}
+  constructor(private router: Router, private toastCtrl: ToastController) {
+    const now = new Date();
+
+    const currentMonth = getMonth(now); // 0 = January, 11 = December
+    const currentDate = getDate(now); // e.g. 20
+  }
 
   ngOnInit(): void {
     this.createChart();

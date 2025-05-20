@@ -24,7 +24,7 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { DatabaseService } from 'src/services/db.service';
 
 // Interfaces
-interface Transaction {
+export interface Transaction {
   type: string;
   amount: number;
   category: string;
@@ -73,8 +73,6 @@ export class AddTransactionPage {
   }
 
   async addTransaction() {
-    console.log('is db ready', this.dbService.isDatabaseReady())
-    if (this.transactionForm.valid && this.dbService.isDatabaseReady()) {
       const formData = this.transactionForm.value;
       // do something with formData, like save to DB
       const transaction: Transaction = {
@@ -86,6 +84,5 @@ export class AddTransactionPage {
       }
       
       await this.dbService.addTransaction(transaction);
-    } 
   }
 }

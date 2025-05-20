@@ -1,7 +1,14 @@
-import { Injectable } from '@angular/core';
-import { CapacitorSQLite, SQLiteConnection, SQLiteDBConnection } from '@capacitor-community/sqlite';
+import { Injectable, signal, WritableSignal } from '@angular/core';
+import {
+  CapacitorSQLite,
+  SQLiteConnection,
+  SQLiteDBConnection,
+} from '@capacitor-community/sqlite';
 
-interface Transaction {
+const DB_TRANSACTONS = '2kk';
+
+export interface Transaction {
+  id?: string,
   type: string;
   amount: number;
   category: string;
@@ -13,66 +20,92 @@ interface Transaction {
   providedIn: 'root',
 })
 export class DatabaseService {
-  private sqlite: SQLiteConnection;
-  private db: SQLiteDBConnection | null = null;
+  private sqlite: SQLiteConnection = new SQLiteConnection(CapacitorSQLite);
+  private db!: SQLiteDBConnection;
+  private transactions: WritableSignal<Transaction[]> = signal<Transaction[]>(
+    []
+  );
   private isDbReady = false;
 
   constructor() {
     this.sqlite = new SQLiteConnection(CapacitorSQLite);
   }
 
-  async init(): Promise<void> {
-    try {
-      const isConn = await this.sqlite.isConnection('db_finance', false);
-      if (!isConn.result) {
-        this.db = await this.sqlite.createConnection('db_finance', false, 'no-encryption', 1, false);
-      } else {
-        this.db = await this.sqlite.retrieveConnection('db_finance', false);
-      }
-  
-      await this.db.open();
-  
-      await this.db.execute(`
-        CREATE TABLE IF NOT EXISTS transactions (
-          id INTEGER PRIMARY KEY,
-          type TEXT,
-          amount NUMERIC,
-          category NUMERIC,
-          note TEXT,
-          date TEXT
-        );
-      `);
-  
-      this.isDbReady = true;
-    } catch (err) {
-      console.error('DB init error', err);
+  getTransactions() {
+    return this.transactions;
+  }
+
+  async initializePlugin() {
+    const isConn = await this.sqlite.isConnection(DB_TRANSACTONS, false);
+
+    if (isConn.result) {
+      this.db = await this.sqlite.retrieveConnection(DB_TRANSACTONS, false);
+      // await this.sqlite.closeConnection(DB_TRANSACTONS, false);
+    } else {
+      this.db = await this.sqlite.createConnection(
+        DB_TRANSACTONS,
+        false,
+        'no-encryption',
+        1,
+        false
+      );
     }
+
+    console.log('Connection: ', isConn);
+
+    // if (isConn.result) {
+    //   // Retrieve existing connection
+    // } else {
+    // Create a new connection
+    // }
+
+    await this.db.open();
+
+    const schema = `
+          CREATE TABLE IF NOT EXISTS transactions (
+            id INTEGER PRIMARY KEY,
+            type TEXT,
+            amount NUMERIC,
+            category NUMERIC,
+            note TEXT,
+            date TEXT
+          );
+        `;
+
+    await this.db.execute(schema);
+    this.loadTransactions();
   }
 
-  async addTransaction(transaction: Transaction): Promise<void> {
-    if (!this.db || !this.isDbReady) throw new Error('Database not ready');
+  async loadTransactions() {
+    const transactions = await this.db.query('SELECT * FROM transactions;');
 
-    const query = 'INSERT INTO transactions (type, amount, category, note, date) VALUES (?, ?, ?, ?, ?)';
-    const result = await this.db.run(query, [transaction.type, transaction.category, transaction.amount, transaction.note, transaction.date]);
-    console.log('Insert result:', result);
+    this.transactions.set(transactions.values || []);
   }
 
-  async getTransactions(): Promise<any[]> {
-    if (!this.db || !this.isDbReady) throw new Error('Database not ready');
+  async addTransaction(transaction: Transaction) {
+    const query = `INSERT INTO transactions (type, amount, category, note, date) VALUES (?, ?, ?, ?, ?)`;
+    const result = await this.db.run(query, [
+      transaction.type,
+      transaction.category,
+      transaction.amount,
+      transaction.note,
+      transaction.date,
+    ]);
 
-    const res = await this.db.query('SELECT * FROM transactions');
-    return res.values ?? [];
+    this.loadTransactions();
+    return result;
   }
 
-  async close(): Promise<void> {
-    if (this.db) {
-      await this.sqlite.closeConnection('my_db', false);
-      this.db = null;
-      this.isDbReady = false;
-    }
-  }
+  async getTransaction(id: string) {
+    const result = await this.db.query(
+      'SELECT * FROM transactions WHERE id = ?',
+      [id]
+    );
 
-  isDatabaseReady(): boolean {
-    return this.isDbReady && this.db != null;
+    let ab = result?.values?.[0];
+
+    console.log('ab transaction', ab)
+
+    return ab;
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 import {
   IonButton,
   IonContent,
@@ -10,6 +11,9 @@ import {
   IonIcon,
   IonToolbar,
 } from '@ionic/angular/standalone';
+
+// Services
+import { DatabaseService, Transaction } from 'src/services/db.service';
 
 @Component({
   selector: 'app-view-transaction',
@@ -28,9 +32,21 @@ import {
   ],
 })
 export class ViewTransactionPage implements OnInit {
-  constructor(private navCtrl: NavController) {}
+  transaction: any;
 
-  ngOnInit() {}
+  constructor(
+    private route: ActivatedRoute,
+    private dbService: DatabaseService,
+    private navCtrl: NavController
+  ) {
+    
+  }
+  
+  async ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if(id) this.transaction = await this.dbService.getTransaction(id);
+    console.log('This transaction: ', this.transaction)
+  }
 
   goBack() {
     this.navCtrl.pop();

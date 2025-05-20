@@ -11,6 +11,9 @@ import {
 // Components
 import { HeaderComponent } from 'src/app/components/header/header.component';
 
+// Services
+import { DatabaseService, Transaction } from 'src/services/db.service';
+
 @Component({
   selector: 'tab-history',
   templateUrl: 'history.page.html',
@@ -25,9 +28,15 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
   ],
 })
 export class HistoryPage {
-  constructor(private router: Router,) {}
+  transactions = this.dbService.getTransactions()
 
-  viewTransaction() {
-    this.router.navigateByUrl('/view-transaction');
+  constructor(
+    private router: Router, 
+    private dbService: DatabaseService
+  ) {
+  }
+
+  viewTransaction(transaction: Transaction) {
+    this.router.navigate(['/view-transaction', transaction.id]);
   }
 }

@@ -41,9 +41,11 @@ export class AppComponent {
 
     // Initialize Firebase app
     initializeApp(environment.firebase);
+
+    this.initApp();
   }
   
-  async ngOnInit() {
-    await this.dbService.init();
+  async initApp() {
+    await this.dbService.initializePlugin();
   }
 }
