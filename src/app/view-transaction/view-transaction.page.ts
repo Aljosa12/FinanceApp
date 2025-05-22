@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { format } from 'date-fns';
 import {
   IonButton,
   IonContent,
@@ -21,6 +22,7 @@ import { DatabaseService, Transaction } from 'src/services/db.service';
   styleUrls: ['./view-transaction.page.scss'],
   standalone: true,
   imports: [
+    DatePipe,
     IonButton,
     IonContent,
     IonHeader,

@@ -9,13 +9,13 @@
     <ion-title slot="end">View transaction</ion-title>
   </ion-toolbar>
 </ion-header>
-{{ transaction ? 'Hello world' : 'Not happy' }}
+
 <ion-content [fullscreen]="true">
   <div class="content-wrapper">
     <div class="transaction">
       <div class="data">
         <span class="amount-text">Date:</span>
-        <span class="date">{{ transaction?.date }}</span>
+        <span class="date">{{ transaction?.date| date: "MM. dd. YYYY" }}</span>
       </div>
       <div class="data">
         <span class="amount-text">Transaction type:</span>
@@ -27,7 +27,7 @@
       </div>
       <div class="data">
         <span class="amount-text">Amount:</span>
-        <span class="amount">{{ transaction?.amount }}</span>
+        <span class="amount">{{ transaction?.amount }}$</span>
       </div>
       <div class="data">
         <span class="amount-text">Note:</span>

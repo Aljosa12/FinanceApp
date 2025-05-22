@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { Platform } from '@ionic/angular';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import {
@@ -15,8 +17,6 @@ import {
   removeOutline,
 } from 'ionicons/icons';
 
-
-
 // Services
 import { DatabaseService } from 'src/services/db.service';
 
@@ -26,7 +26,7 @@ import { DatabaseService } from 'src/services/db.service';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor(private dbService: DatabaseService) {
+  constructor(private dbService: DatabaseService, private platform: Platform) {
     addIcons({
       addCircleOutline,
       addOutline,
@@ -44,8 +44,16 @@ export class AppComponent {
 
     this.initApp();
   }
-  
+
   async initApp() {
+    // this.platform.ready().then(() => {
+    //   // Push content below status bar
+    //   StatusBar.setOverlaysWebView({ overlay: false }).then(() => {
+    //     // Set white background
+  
+    //   });
+    // });
+
     await this.dbService.initializePlugin();
   }
 }

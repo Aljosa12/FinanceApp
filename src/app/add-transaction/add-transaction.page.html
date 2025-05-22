@@ -15,14 +15,17 @@
         <ion-item>
           <ion-input formControlName="amount" label="Transaction amount" type="number" placeholder="Enter number"></ion-input>
         </ion-item>
-
-        <ion-item>
-          <ion-select formControlName="category" interface="popover" label="Transaction category" placeholder="Select category">
-            <ion-select-option value="entertainment">Entertainment</ion-select-option>
-            <ion-select-option value="expenses">Expenses</ion-select-option>
-            <ion-select-option value="fun">Fun</ion-select-option>
-          </ion-select>
-        </ion-item>
+        @if (transactionForm.get('type')?.value === 'expense') {
+          <ion-item>
+            <ion-select formControlName="category" interface="popover" label="Transaction category" placeholder="Select category">
+              <ion-select-option value="entertainment">Entertainment</ion-select-option>
+              <ion-select-option value="utility">Utility</ion-select-option>
+              <ion-select-option value="groceries">Groceries</ion-select-option>
+              <ion-select-option value="restaurantsAndBar">Restaurants & Bars</ion-select-option>
+              <ion-select-option value="other">Other</ion-select-option>
+            </ion-select>
+          </ion-item>
+        }
 
         <ion-item>
           <ion-textarea formControlName="note" label="Note" placeholder="Enter details..."></ion-textarea>

@@ -9,6 +9,7 @@ const DB_TRANSACTONS = '2kk';
 
 export interface Transaction {
   id?: string,
+  // currentBalance?: number;
   type: string;
   amount: number;
   category: string;
@@ -51,14 +52,6 @@ export class DatabaseService {
       );
     }
 
-    console.log('Connection: ', isConn);
-
-    // if (isConn.result) {
-    //   // Retrieve existing connection
-    // } else {
-    // Create a new connection
-    // }
-
     await this.db.open();
 
     const schema = `
@@ -86,8 +79,8 @@ export class DatabaseService {
     const query = `INSERT INTO transactions (type, amount, category, note, date) VALUES (?, ?, ?, ?, ?)`;
     const result = await this.db.run(query, [
       transaction.type,
-      transaction.category,
       transaction.amount,
+      transaction.category,
       transaction.note,
       transaction.date,
     ]);
@@ -101,11 +94,8 @@ export class DatabaseService {
       'SELECT * FROM transactions WHERE id = ?',
       [id]
     );
+    const transactions = result?.values?.[0];
 
-    let ab = result?.values?.[0];
-
-    console.log('ab transaction', ab)
-
-    return ab;
+    return transactions;
   }
 }

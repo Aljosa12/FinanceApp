@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   IonHeader,
@@ -28,12 +28,40 @@ import { DatabaseService, Transaction } from 'src/services/db.service';
   ],
 })
 export class HistoryPage {
-  transactions = this.dbService.getTransactions()
+  transactions = this.dbService.getTransactions();
+  transactionsForView: any;
+  balance: number = 0;
 
-  constructor(
-    private router: Router, 
-    private dbService: DatabaseService
-  ) {
+  constructor(private router: Router, private dbService: DatabaseService) {
+    effect(() => {
+      this.balance = 0;
+      const txs = this.transactions();
+
+      this.transactionsForView = txs.map((transaction) => ({
+        ...transaction,
+        currentBalance:
+          transaction.type === 'income'
+            ? Math.round(this.balance + transaction.amount * 100) / 100
+            : Math.round(this.balance - transaction.amount * 100) / 100,
+      }));
+
+      this.transactionsForView = txs.map((transaction) => {
+        if (transaction.type === 'income') {
+          const sum = this.balance + transaction.amount;
+          this.balance = Math.round(sum * 100) / 100;
+        } else if (transaction.type === 'expense') {
+          const sum = this.balance - transaction.amount;
+          this.balance = Math.round(sum * 100) / 100;
+        }
+
+        console.log('Transaction: ', this.balance, transaction.amount)
+
+        return {
+          ...transaction,
+          currentBalance: this.balance,
+        };
+      });
+    });
   }
 
   viewTransaction(transaction: Transaction) {
