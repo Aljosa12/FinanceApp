@@ -77,12 +77,6 @@ export class RegisterPage {
         loading.dismiss();
 
         if (user) {
-          // const toast = await this.toastCtrl.create({
-          //   message: 'Login successful!',
-          //   duration: 2000,
-          // })
-          // toast.present()
-
           this.router.navigateByUrl('/login');
         } 
       });
