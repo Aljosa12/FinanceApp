@@ -5,40 +5,11 @@
   <div class="transaction" (click)="viewTransaction(transaction)">
     <div class="data">
       <span class="amount">
-        @if (transaction.type === 'expense') { - }{{ transaction.amount
-        }}</span
+        @if (transaction.type === 'expense') { - }{{ transaction.amount }}</span
       >
       <span class="balance">Balance: {{ transaction.currentBalance }}$</span>
     </div>
     <ion-icon name="add-outline"></ion-icon>
   </div>
   }
-  <!-- <div class="transaction">
-    <div class="data">
-      <span class="amount"> @if (true) {-}44.15 $</span>
-      <span class="balance">Balance: 123.56$</span>
-    </div>
-    <ion-icon name="w"></ion-icon>
-  </div>
-  <div class="transaction">
-    <div class="data">
-      <span class="amount">-22.15 $</span>
-      <span class="balance">Balance: 123.56$</span>
-    </div>
-    <ion-icon name="remove-outline"></ion-icon>
-  </div>
-  <div class="transaction">
-    <div class="data">
-      <span class="amount">36.15 $</span>
-      <span class="balance">Balance: 123.56$</span>
-    </div>
-    <ion-icon name="add-outline"></ion-icon>
-  </div>
-  <div class="transaction">
-    <div class="data">
-      <span class="amount">-123.15 $</span>
-      <span class="balance">Balance: 123.56$</span>
-    </div>
-    <ion-icon name="remove-outline"></ion-icon>
-  </div> -->
 </ion-content>

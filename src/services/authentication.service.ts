@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import {
+  Auth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut,
+} from '@angular/fire/auth';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthenticationService {
-
   constructor(private auth: Auth) {}
 
   login(email: string, password: string) {
@@ -29,12 +34,28 @@ export class AuthenticationService {
 
   getCurrentUser(): Promise<User | null> {
     const auth = getAuth();
-  
+
     return new Promise((resolve, reject) => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        unsubscribe(); // stop listening after first response
-        resolve(user); // return the user (or null if not signed in)
-      }, reject);
+      const unsubscribe = onAuthStateChanged(
+        auth,
+        (user) => {
+          unsubscribe();
+          resolve(user);
+        },
+        reject
+      );
+    });
+  }
+
+  forgotPassword(email: string) {
+    return new Promise((resolve, reject) => {
+      sendPasswordResetEmail(this.auth, email)
+        .then(() => {
+          resolve('Password reset email sent');
+        })
+        .catch((error) => {
+          reject(error);
+        });
     });
   }
 }

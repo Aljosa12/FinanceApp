@@ -31,11 +31,11 @@ import { DatabaseService } from 'src/services/db.service';
 
 // Interfaces
 export interface Transaction {
-  type: string;
   amount: number;
   category: string;
-  note: string;
   date: string;
+  type: string;
+  note: string;
 }
 
 @Component({

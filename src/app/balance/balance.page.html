@@ -14,11 +14,11 @@
         <span class="amount">{{ monthlySpendAmount }} $ </span>
         <span class="amount-text">Spent this month</span>
       </div>
-      <div class="month">Month: {{ currentMonthName }}</div>
+      <time class="month">Month: {{ currentMonthName }}</time>
     </div>
     <div class="chart">
       <h3>Your spending by category</h3>
-      <canvas id="myDoughnutChart" width="400" height="400"></canvas>
+      <canvas aria-label role="img" id="myDoughnutChart" width="400" height="400"></canvas>
     </div>
   </div>
 </ion-content>
