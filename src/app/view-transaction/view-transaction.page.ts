@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { format } from 'date-fns';
 import {
   IonButton,
@@ -13,8 +13,16 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 
+// Components
+import { HeaderComponent } from 'src/app/components/header/header.component';
+
 // Services
 import { DatabaseService, Transaction } from 'src/services/db.service';
+
+// Pages
+import { ProfilePage } from 'src/app/profile/profile.page';
+import { SettingsPage } from 'src/app/settings/settings.page';
+import { HelpAboutPage } from 'src/app/help-about/help-about.page';
 
 @Component({
   selector: 'app-view-transaction',
@@ -23,14 +31,15 @@ import { DatabaseService, Transaction } from 'src/services/db.service';
   standalone: true,
   imports: [
     DatePipe,
+    CommonModule,
+    FormsModule,
+    HeaderComponent,
     IonButton,
     IonContent,
     IonHeader,
     IonTitle,
     IonIcon,
     IonToolbar,
-    CommonModule,
-    FormsModule,
   ],
 })
 export class ViewTransactionPage implements OnInit {
@@ -39,15 +48,13 @@ export class ViewTransactionPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private dbService: DatabaseService,
-    private navCtrl: NavController
-  ) {
-    
-  }
-  
+    public navCtrl: NavController
+  ) {}
+
   async ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    if(id) this.transaction = await this.dbService.getTransaction(id);
-    console.log('This transaction: ', this.transaction)
+    if (id) this.transaction = await this.dbService.getTransaction(id);
+    console.log('This transaction: ', this.transaction);
   }
 
   goBack() {

@@ -1,14 +1,36 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
 :root {
-    --ion-background-color: #ffffff;
-    --ion-text-color: #000000;
+  --ion-background-color: #121212; /* Dark grey background */
+  --ion-background-secondary-color: #fff;
+  --ion-text-color: #000000;
 
+  --ion-color-primary: #008080;
+  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #3171e0;
+  --ion-color-primary-tint: #4c8dff;
+}
 
-    --ion-color-primary: #008080;
-    --ion-color-primary-rgb: 56, 128, 255;
-    --ion-color-primary-contrast: #ffffff;
-    --ion-color-primary-contrast-rgb: 255, 255, 255;
-    --ion-color-primary-shade: #3171e0;
-    --ion-color-primary-tint: #4c8dff;
-  }
+body.dark {
+  --ion-background-color: #121212; /* Dark grey background */
+  --ion-background-secondary-color: #808080;
+  --ion-text-color: #ffffff; /* Bright text color for contrast */
+
+  --ion-color-primary: #00b3b3; /* Brighter teal for dark backgrounds */
+  --ion-color-primary-rgb: 0, 179, 179;
+  --ion-color-primary-contrast: #000000; /* Text on teal buttons will be black */
+  --ion-color-primary-contrast-rgb: 0, 0, 0;
+  --ion-color-primary-shade: #009999; /* Slightly darker teal */
+  --ion-color-primary-tint: #33cccc; /* Lighter tint for hover effects */
+
+  --ion-color-secondary: #66d9ef; 
+  --ion-color-tertiary: #ffa500; 
+  --ion-color-success: #00c853; 
+  --ion-color-warning: #ffab00; /* Amber warning */
+  --ion-color-danger: #ff5252; /* Red danger color */
+
+  --ion-toolbar-background: #1e1e1e; /* Slightly lighter header/footer */
+  --ion-item-background: #1c1c1c; /* Dark cards/lists */
+}

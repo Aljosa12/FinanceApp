@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Settings</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()" color="dark">
+        <ion-icon size="large" size="large" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-label>Dark Mode</ion-label>
+    <ion-toggle (ionChange)="toggleDarkTheme($event)"></ion-toggle>
+  </ion-item>
+</ion-content>

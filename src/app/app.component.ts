@@ -6,10 +6,36 @@ import { Platform } from '@ionic/angular';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import {
+  MenuController,
+  ModalController,
+  NavController,
+  LoadingController,
+} from '@ionic/angular';
+import {
+  IonButton,
+  IonDatetime,
+  IonLabel,
+  IonTextarea,
+  IonSelect,
+  IonSelectOption,
+  IonInput,
+  IonItem,
+  IonList,
+  IonMenu,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonIcon,
+  IonContent,
+} from '@ionic/angular/standalone';
+import {
   addCircleOutline,
   addOutline,
   barChartOutline,
   chevronBackOutline,
+  cogOutline,
+  closeOutline,
+  informationCircleOutline,
   logOutOutline,
   person,
   personAdd,
@@ -17,21 +43,56 @@ import {
   removeOutline,
 } from 'ionicons/icons';
 
+// Components
+import { HeaderComponent } from './components/header/header.component';
+
 // Services
 import { DatabaseService } from 'src/services/db.service';
+
+// Pages
+import { ProfilePage } from 'src/app/profile/profile.page';
+import { SettingsPage } from 'src/app/settings/settings.page';
+import { HelpAboutPage } from 'src/app/help-about/help-about.page';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonApp, IonRouterOutlet],
+  imports: [
+    IonApp,
+    IonRouterOutlet,
+    HeaderComponent,
+    IonButton,
+    IonDatetime,
+    IonLabel,
+    IonTextarea,
+    IonSelect,
+    IonSelectOption,
+    IonInput,
+    IonItem,
+    IonList,
+    IonMenu,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonIcon,
+    IonContent,
+  ],
 })
 export class AppComponent {
-  constructor(private dbService: DatabaseService, private platform: Platform) {
+  constructor(
+    private dbService: DatabaseService,
+    public menuCtrl: MenuController,
+    public modalCtrl: ModalController,
+    public navCtrl: NavController
+  ) {
     addIcons({
       addCircleOutline,
       addOutline,
       barChartOutline,
+      closeOutline,
       chevronBackOutline,
+      cogOutline,
+      informationCircleOutline,
       logOutOutline,
       person,
       personAdd,
@@ -50,10 +111,38 @@ export class AppComponent {
     //   // Push content below status bar
     //   StatusBar.setOverlaysWebView({ overlay: false }).then(() => {
     //     // Set white background
-  
+
     //   });
     // });
 
     await this.dbService.initializePlugin();
+  }
+
+  // PAGES ****************************************************
+  async openProfile() {
+    let modal = await this.modalCtrl.create({
+      component: ProfilePage,
+      cssClass: 'modal-fullscreen',
+    });
+    await modal.present();
+    this.menuCtrl.close();
+  }
+
+  async openSettings() {
+    let modal = await this.modalCtrl.create({
+      component: SettingsPage,
+      cssClass: 'modal-fullscreen',
+    });
+    modal.present();
+    this.menuCtrl.close();
+  }
+
+  async openHelp() {
+    let modal = await this.modalCtrl.create({
+      component: HelpAboutPage,
+      cssClass: 'modal-fullscreen',
+    });
+    modal.present();
+    this.menuCtrl.close();
   }
 }

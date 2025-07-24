@@ -119,6 +119,9 @@ export class BalancePage {
 
   createChart(): void {
     const ctx = document.getElementById('myDoughnutChart') as HTMLCanvasElement;
+    const ionTextColor = getComputedStyle(document.body)
+      .getPropertyValue('--ion-text-color')
+      .trim();
 
     this.chart = new Chart(ctx, {
       type: 'doughnut', // Doughnut chart type
@@ -155,6 +158,9 @@ export class BalancePage {
         plugins: {
           legend: {
             position: 'top',
+            labels: {
+              color: ionTextColor,
+            },
           },
           tooltip: {
             callbacks: {

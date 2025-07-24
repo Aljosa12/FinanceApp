@@ -1,6 +1,6 @@
-<app-header title="Transaction history"></app-header>
+<app-header title="TransactionHistory"></app-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" id="history-content">
   @for (transaction of transactionsForView; track transaction) {
   <div class="transaction" (click)="viewTransaction(transaction)">
     <div class="data">

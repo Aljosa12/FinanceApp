@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()" color="dark">
+        <ion-icon size="large" size="large" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="content-wrapper">
+    <div class="profile-content">
+      <div class="user-data">
+        <span>User E-mail:</span>
+        <h6>{{ userEmail }}</h6>
+      </div>
+      <div class="lost-password">
+         <a href="/lost-password">
+          Lost my password
+        </a>
+      </div>
+      <div>
+        <ion-button (click)="logout()" size="medium" slot="start"
+          ><ion-icon name="log-out-outline"></ion-icon
+        ><span class="ion-margin-start">Log out</span></ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

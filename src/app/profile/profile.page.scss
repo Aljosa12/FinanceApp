@@ -1,0 +1,35 @@
+.content-wrapper {
+  padding: 2.5rem 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .profile-content {
+    border: solid 1px #0080801a;
+    border-radius: 16px;
+    padding: 4rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .lost-password {
+        margin-top: 2px;
+    }
+
+    .user-data {
+      span {
+        font-size: 0.75rem;
+      }
+      h6 {
+        margin-top: 0.225rem;
+      }
+    }
+
+    ion-button {
+      margin-top: 1.5rem;
+      box-shadow: none !important;
+    }
+  }
+}

@@ -20,5 +20,17 @@ export const routes: Routes = [
   {
     path: 'lost-password',
     loadComponent: () => import('./lost-password/lost-password.page').then( m => m.LostPasswordPage)
+  },  {
+    path: 'profile',
+    loadComponent: () => import('./profile/profile.page').then( m => m.ProfilePage)
+  },
+  {
+    path: 'settings',
+    loadComponent: () => import('./settings/settings.page').then( m => m.SettingsPage)
+  },
+  {
+    path: 'help-about',
+    loadComponent: () => import('./help-about/help-about.page').then( m => m.HelpAboutPage)
   }
+
 ];

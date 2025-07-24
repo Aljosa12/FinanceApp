@@ -32,7 +32,10 @@ export class HistoryPage {
   transactionsForView: any;
   balance: number = 0;
 
-  constructor(private router: Router, private dbService: DatabaseService) {
+  constructor(
+    private router: Router,
+    private dbService: DatabaseService,
+  ) {
     effect(() => {
       this.balance = 0;
       const txs = this.transactions();
@@ -53,8 +56,6 @@ export class HistoryPage {
           const sum = this.balance - transaction.amount;
           this.balance = Math.round(sum * 100) / 100;
         }
-
-        console.log('Transaction: ', this.balance, transaction.amount)
 
         return {
           ...transaction,
