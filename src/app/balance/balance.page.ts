@@ -8,7 +8,6 @@ import {
   IonTitle,
   IonContent,
 } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import {
   Chart,
   DoughnutController,
@@ -40,7 +39,6 @@ Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title);
     IonTitle,
     IonIcon,
     IonContent,
-    ExploreContainerComponent,
   ],
 })
 export class BalancePage {
