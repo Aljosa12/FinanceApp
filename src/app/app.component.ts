@@ -9,8 +9,7 @@ import {
   MenuController,
   ModalController,
   NavController,
-  LoadingController,
-} from '@ionic/angular';
+} from '@ionic/angular/standalone';
 import {
   IonButton,
   IonDatetime,
@@ -104,6 +103,8 @@ export class AppComponent {
     initializeApp(environment.firebase);
 
     this.initApp();
+
+    this.setStatusBar();
   }
 
   async initApp() {
@@ -116,6 +117,19 @@ export class AppComponent {
     // });
 
     await this.dbService.initializePlugin();
+  }
+
+   async setStatusBar() {
+    // Show the status bar (in case it was hidden)
+    // await StatusBar.show();
+
+    // // Change background color (optional)
+    // await StatusBar.setBackgroundColor({ color: '#ffffff' });
+
+    // // Change text/icons style
+    // await StatusBar.setOverlaysWebView({ overlay: false });
+    // await StatusBar.setStyle({ style: Style.Dark }); 
+    // Use Style.Light for light text/icons on dark backgrounds
   }
 
   // PAGES ****************************************************
