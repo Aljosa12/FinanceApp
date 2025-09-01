@@ -59,3 +59,8 @@
 ion-input:last-of-type {
   margin-top: 20px;
 }
+
+.btns {
+  display: flex;
+  flex-direction: column;
+}
